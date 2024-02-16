@@ -1,6 +1,6 @@
 import { checkApiLimit, increaseApiLimit } from "@/lib/api-limit";
 import { checkSubscription } from "@/lib/subscription";
-import { auth } from "@clerk/nextjs";
+import { getAuth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { Configuration, OpenAIApi } from "openai";
 
@@ -12,7 +12,7 @@ const openai = new OpenAIApi(configuration);
 
 export async function POST(req: Request) {
   try {
-    const { userId } = auth();
+    const { userId } = getAuth(req);
     const body = await req.json();
     const { messages } = body;
 
