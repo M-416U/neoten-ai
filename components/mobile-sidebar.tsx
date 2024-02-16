@@ -5,7 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import SiderBar from "@/components/sidebar";
 import { useEffect, useState } from "react";
-const MobileSidebar = () => {
+const MobileSidebar = ({
+  count = 0,
+  isPro = false,
+}: {
+  count: number;
+  isPro: boolean;
+}) => {
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
     setIsMounted(true);
@@ -21,7 +27,7 @@ const MobileSidebar = () => {
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="p-0">
-        <SiderBar />
+        <SiderBar count={count} isPro={isPro} />
       </SheetContent>
     </Sheet>
   );
