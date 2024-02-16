@@ -44,7 +44,7 @@ const ConversationPage = () => {
       setMusic(response.data);
 
       form.reset();
-    } catch (error) {
+    } catch (error: any) {
       if (error?.response?.status === 403) {
         upgradeModal.onOpen();
       }

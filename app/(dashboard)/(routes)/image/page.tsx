@@ -66,7 +66,7 @@ const ConversationPage = () => {
       setImages(urls);
 
       form.reset();
-    } catch (error) {
+    } catch (error: any) {
       if (error?.response?.status === 403) {
         upgradeModal.onOpen();
       }
