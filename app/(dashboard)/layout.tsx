@@ -2,9 +2,11 @@ import Navbar from "@/components/navbar";
 import SiderBar from "@/components/sidebar";
 import { getApliLimit } from "@/lib/api-limit";
 import { checkSubscription } from "@/lib/subscription";
+import { auth } from "@clerk/nextjs";
 
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
-  const apiLimitCount = await getApliLimit();
+  const { userId } = auth();
+  const apiLimitCount = await getApliLimit(userId!);
   const isPro = await checkSubscription();
   return (
     <div className="h-full relative">

@@ -30,7 +30,7 @@ export async function POST(req: Request) {
       return new NextResponse("Messages are required", { status: 400 });
     }
 
-    const isFreeTrail = await checkApiLimit();
+    const isFreeTrail = await checkApiLimit(userId);
     const isPro = await checkSubscription();
     if (!isFreeTrail && !isPro) {
       return new NextResponse("FreeTrail has ended", { status: 403 });
@@ -48,7 +48,7 @@ export async function POST(req: Request) {
       model: "gpt-3.5-turbo",
       messages: modifedMessages,
     });
-    !isPro && (await increaseApiLimit());
+    !isPro && (await increaseApiLimit(userId));
     return NextResponse.json(response.data.choices[0].message);
   } catch (error) {
     console.log("[CONVERSATION_ERROR]", error);

@@ -1,9 +1,9 @@
-import { auth } from "@clerk/nextjs";
+// import { auth } from "@clerk/nextjs";
 import { db } from "./db";
 import { MAX_API_LIMIT } from "@/constants";
 
-const { userId } = auth();
-export const increaseApiLimit = async () => {
+// const { userId } = auth();
+export const increaseApiLimit = async (userId: string) => {
   if (!userId) return null;
 
   const userLimit = await db.apiLimit.findUnique({ where: { userId } });
@@ -21,7 +21,7 @@ export const increaseApiLimit = async () => {
     });
   }
 };
-export const checkApiLimit = async () => {
+export const checkApiLimit = async (userId: string) => {
   if (!userId) return false;
   const currentCount = await db.apiLimit.findUnique({
     where: { userId },
@@ -32,7 +32,7 @@ export const checkApiLimit = async () => {
     return false;
   }
 };
-export const getApliLimit = async () => {
+export const getApliLimit = async (userId: string) => {
   if (!userId) return 0;
   const currentCount = await db.apiLimit.findUnique({
     where: { userId },

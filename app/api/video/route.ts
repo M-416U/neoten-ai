@@ -20,7 +20,7 @@ export async function POST(req: Request) {
     if (!prompt) {
       return new NextResponse("prompt are required", { status: 400 });
     }
-    const isFreeTrail = await checkApiLimit();
+    const isFreeTrail = await checkApiLimit(userId);
     const isPro = await checkSubscription();
     if (!isFreeTrail && !isPro) {
       return new NextResponse("FreeTrail has ended", { status: 403 });
@@ -37,7 +37,7 @@ export async function POST(req: Request) {
         },
       }
     );
-    !isPro && (await increaseApiLimit());
+    !isPro && (await increaseApiLimit(userId));
     return NextResponse.json(response);
   } catch (error) {
     console.log("[VIDEO_ERROR]", error);

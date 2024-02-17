@@ -59,7 +59,7 @@ const CodePage = () => {
 
       form.reset();
     } catch (error: any) {
-      if (error?.response?.status && error?.response?.status === 403) {
+      if (error?.response?.status === 403) {
         upgradeModal.onOpen();
       }
     } finally {

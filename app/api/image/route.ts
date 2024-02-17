@@ -37,7 +37,7 @@ export async function POST(req: Request) {
     if (!resolution) {
       return new NextResponse("Resolution is required", { status: 400 });
     }
-    const isFreeTrail = await checkApiLimit();
+    const isFreeTrail = await checkApiLimit(userId);
     const isPro = await checkSubscription();
     if (!isFreeTrail && !isPro) {
       return new NextResponse("FreeTrail has ended", { status: 403 });
@@ -47,7 +47,7 @@ export async function POST(req: Request) {
       n: parseInt(amount, 10),
       size: resolution,
     });
-    !isPro && (await increaseApiLimit());
+    !isPro && (await increaseApiLimit(userId));
     return NextResponse.json(response.data.data);
   } catch (error) {
     console.log("[IMAGE_ERROR]", error);
