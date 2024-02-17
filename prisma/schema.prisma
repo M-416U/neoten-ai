@@ -11,7 +11,7 @@ datasource db {
 }
 
 model apiLimit {
-  id         Int      @id @map("_id")
+  id         String   @id @default(cuid()) @map("_id")
   userId     String   @unique
   count      Int
   created_at DateTime @default(now())
